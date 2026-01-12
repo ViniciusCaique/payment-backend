@@ -1,0 +1,45 @@
+{
+	"name": "video-games",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"dev": "tsx watch src/server.ts",
+		"start": "node dist/server.js",
+		"build": "tsc && tsc-alias",
+		"test:unit": "vitest src/modules"
+	},
+	"module": "module",
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"@fastify/cors": "^11.1.0",
+		"@fastify/jwt": "^10.0.0",
+		"@fastify/swagger": "^9.5.2",
+		"@fastify/swagger-ui": "^5.2.3",
+		"@scalar/fastify-api-reference": "^1.36.1",
+		"bcryptjs": "^3.0.2",
+		"dotenv": "^17.2.2",
+		"drizzle-orm": "^0.44.2",
+		"fastify": "^5.6.1",
+		"fastify-type-provider-zod": "^6.0.0",
+		"pg": "^8.16.2",
+		"zod": "^4.1.11"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "2.2.7",
+		"@eslint/js": "^9.36.0",
+		"@types/node": "^24.5.2",
+		"@types/pg": "^8.15.5",
+		"drizzle-kit": "^0.18.1",
+		"eslint": "^9.36.0",
+		"globals": "^16.4.0",
+		"tsc-alias": "^1.8.16",
+		"tsx": "^4.20.6",
+		"typescript": "^5.9.2",
+		"typescript-eslint": "^8.44.1",
+		"vite-tsconfig-paths": "^5.1.4",
+		"vitest": "^4.0.17"
+	}
+}
