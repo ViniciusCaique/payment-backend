@@ -6,6 +6,13 @@ export const paymentStatusEnum = {
 	FAIL:"FAIL"
 } as const
 
+export const paymentMethodEnum = {
+	PIX: "PIX", 
+	CREDIT_CARD: "CREDIT_CARD", 
+} as const
+
+export type PaymentMethod = typeof paymentMethodEnum;
+
 export const createPaymentSchema = z.object({
 	id: z.string(),
 	document: z.string().min(1),
@@ -18,6 +25,12 @@ export const createPaymentSchema = z.object({
 });
 
 export type CreatePaymentInput = z.infer<typeof createPaymentSchema>;
+
 export type UpdatePaymentInput = Partial<
 	Omit<CreatePaymentInput, "id" | "createdAt">
 >;
+
+export interface PaymentFilters {
+  document?: string;
+  paymentMethod?: string;
+}

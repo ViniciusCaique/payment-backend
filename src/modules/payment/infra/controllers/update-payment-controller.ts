@@ -1,3 +1,4 @@
+import { NotFound } from "@/shared/errors/not-found";
 import type { FastifyReply, FastifyRequest } from "fastify";
 import { makeUpdatePaymentUseCase } from "../../application/factories/make-update-payment";
 import { getPaymentId, updatePaymentBody } from "../../domain/payment";
@@ -12,11 +13,16 @@ export async function updatePaymentController(
 
 		const service = makeUpdatePaymentUseCase();
 
-		const response = await service.execute({ id, data });
+		await service.execute({ id, data });
 
-		return reply.status(200).send({ data: response });
+		return reply.status(200).send({ message: "Alterado com sucesso" });
 	} catch (error) {
-		// biome-ignore lint/complexity/noUselessCatch: <explanation>
+		if (error instanceof NotFound) {
+			return reply.status(404).send({
+				message: error.message,
+			});
+		}
+
 		throw error;
 	}
 }

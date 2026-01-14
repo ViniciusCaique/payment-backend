@@ -7,9 +7,9 @@ services:
     environment:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - POSTGRES_DB=videogame
+      - POSTGRES_DB=payment
     volumes:
-      - postgres-video-game-data:/var/lib/postgresql/data
+      - postgres-payment-data:/var/lib/postgresql/data
   
   api:
     build:
@@ -30,4 +30,4 @@ services:
       "
 
 volumes:
-  postgres-video-game-data:
+  postgres-payment-data:

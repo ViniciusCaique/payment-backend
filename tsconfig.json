@@ -12,7 +12,7 @@
 		// Environment Settings
 		// See also https://aka.ms/tsconfig/module
 		"module": "ESNext",
-		"moduleResolution": "bundler",
+		"moduleResolution": "Bundler",
 		"target": "es2022",
 		"types": ["node"],
 		"lib": ["ESNext"],

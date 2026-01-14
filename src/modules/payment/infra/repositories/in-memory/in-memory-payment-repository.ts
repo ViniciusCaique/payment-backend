@@ -1,14 +1,29 @@
 import type { Payment } from "@/modules/payment/domain/payment";
 import {
-  type CreatePaymentInput,
-  paymentStatusEnum,
-  type UpdatePaymentInput,
+	type CreatePaymentInput,
+	type PaymentFilters,
+	paymentStatusEnum,
+	type UpdatePaymentInput,
 } from "@/modules/payment/domain/repository-types";
 import { randomUUID } from "node:crypto";
 import type { PaymentRepository } from "../payment-repository";
 
 export class InMemoryPaymentRepository implements PaymentRepository {
 	public payments: Payment[] = [];
+
+	async findByFilters(filters: PaymentFilters): Promise<Payment[]> {
+		const { document, paymentMethod } = filters;
+
+		return this.payments.filter((payment) => {
+			const matchesDocument = document ? payment.document === document : true;
+
+			const matchesMethod = paymentMethod
+				? payment.paymentMethod === paymentMethod
+				: true;
+
+			return matchesDocument && matchesMethod;
+		});
+	}
 
 	async findById(id: string): Promise<Payment | undefined> {
 		const payment = this.payments.find((payment) => payment.id === id);

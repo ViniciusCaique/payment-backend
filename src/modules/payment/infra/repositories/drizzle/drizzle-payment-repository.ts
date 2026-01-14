@@ -1,14 +1,42 @@
 import type { Payment } from "@/modules/payment/domain/payment";
 import type {
-  CreatePaymentInput,
-  UpdatePaymentInput,
+	CreatePaymentInput,
+	PaymentFilters,
+	UpdatePaymentInput,
 } from "@/modules/payment/domain/repository-types";
 import { db, type Transaction } from "@/shared/config/db";
 import { payments } from "@/shared/config/db/schema/payments";
-import { eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 import type { PaymentRepository } from "../payment-repository";
 
 export class DrizzlePaymentRepository implements PaymentRepository {
+	async findByFilters(
+		filters: PaymentFilters,
+		tx?: Transaction,
+	): Promise<Payment[]> {
+		const dbInstance = tx ?? db;
+
+		const { document, paymentMethod } = filters;
+
+		const conditions = [];
+
+		if (document) {
+			conditions.push(eq(payments.document, document));
+		}
+
+		if (paymentMethod) {
+			// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+			conditions.push(eq(payments.paymentMethod, paymentMethod as any));
+		}
+
+		const payment = await dbInstance
+			.select()
+			.from(payments)
+			.where(and(...conditions));
+
+		return payment;
+	}
+
 	async findById(id: string, tx?: Transaction): Promise<Payment | undefined> {
 		const dbInstance = tx ?? db;
 

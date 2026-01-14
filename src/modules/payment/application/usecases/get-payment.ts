@@ -16,7 +16,7 @@ export class GetPaymentUseCase {
 		}
 
 		return {
-			existingPayment,
+			payment: existingPayment,
 		};
 	}
 }

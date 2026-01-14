@@ -2,7 +2,6 @@ import { DrizzlePaymentRepository } from "../../infra/repositories/drizzle/drizz
 import { UpdatePaymentUseCase } from "../usecases/update-payment";
 
 
-
 export function makeUpdatePaymentUseCase() {
 	const paymentRepository = new DrizzlePaymentRepository();
 

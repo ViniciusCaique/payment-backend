@@ -1,3 +1,4 @@
+import { NotFound } from "@/shared/errors/not-found";
 import type { FastifyReply, FastifyRequest } from "fastify";
 import { makeGetPaymentUseCase } from "../../application/factories/make-get-payment";
 import { getPaymentId } from "../../domain/payment";
@@ -15,7 +16,12 @@ export async function getPaymentByIdController(
 
 		return reply.status(200).send({ data: response });
 	} catch (error) {
-		// biome-ignore lint/complexity/noUselessCatch: <explanation>
+		if (error instanceof NotFound) {
+			return reply.status(404).send({
+				message: error.message,
+			});
+		}
+
 		throw error;
 	}
 }
