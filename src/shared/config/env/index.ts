@@ -4,6 +4,7 @@ import z from "zod/v4";
 const envSchema = z.object({
 	PORT: z.coerce.number().default(3000),
 	DATABASE_URL: z.string(),
+	MERCADO_PAGO_ACCESS_TOKEN: z.string()
 });
 
 const _env = envSchema.safeParse(process.env);

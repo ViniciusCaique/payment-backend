@@ -20,6 +20,7 @@
 		"@fastify/swagger": "^9.5.2",
 		"@fastify/swagger-ui": "^5.2.3",
 		"@scalar/fastify-api-reference": "^1.36.1",
+		"axios": "^1.13.2",
 		"bcryptjs": "^3.0.2",
 		"dotenv": "^17.2.2",
 		"fastify": "^5.6.1",

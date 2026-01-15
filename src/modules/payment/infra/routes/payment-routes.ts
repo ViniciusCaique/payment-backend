@@ -6,12 +6,14 @@ import {
 	getPaymentResponse,
 	getPaymentsFilters,
 	getPaymentsResponse,
+	mercadoPagoWebhookBody,
 	updatePaymentBody,
 	updatePaymentResponse,
 } from "../../domain/payment";
 import { createPaymentController } from "../controllers/create-payment-controller";
 import { getPaymentByIdController } from "../controllers/get-payment-by-id-controller copy";
 import { getPaymentsController } from "../controllers/get-payments-controller";
+import { mercadoPagoWebhookController } from "../controllers/mercadopago-webhook-controller";
 import { updatePaymentController } from "../controllers/update-payment-controller";
 
 export async function paymentRoutes(app: FastifyInstance) {
@@ -66,5 +68,17 @@ export async function paymentRoutes(app: FastifyInstance) {
 			},
 		},
 		updatePaymentController,
+	);
+	app.post(
+		"/webhooks/mercadopago",
+		{
+			schema: {
+				tags: ["Payment"],
+				summary: "Mercado Pago Webhook",
+				body: mercadoPagoWebhookBody,
+				response: { 200: updatePaymentResponse },
+			},
+		},
+		mercadoPagoWebhookController,
 	);
 }

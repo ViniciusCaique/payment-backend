@@ -19,4 +19,5 @@ export const payments = pgTable("tb_payments", {
 	status: statusEnum('status').notNull().default('PENDING'),
 	createdAt: timestamp().notNull().defaultNow(),
 	updatedAt: timestamp().notNull().defaultNow(),
+	mercado_pago_id: varchar({ length: 255 }),
 });

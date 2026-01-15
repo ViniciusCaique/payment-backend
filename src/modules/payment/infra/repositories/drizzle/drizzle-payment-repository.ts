@@ -37,6 +37,21 @@ export class DrizzlePaymentRepository implements PaymentRepository {
 		return payment;
 	}
 
+	async findByMercadoPagoId(
+		id: string,
+		tx?: Transaction,
+	): Promise<Payment | undefined> {
+		const dbInstance = tx ?? db;
+
+		const [payment] = await dbInstance
+			.select()
+			.from(payments)
+			.where(eq(payments.mercado_pago_id, id))
+			.limit(1);
+
+		return payment;
+	}
+
 	async findById(id: string, tx?: Transaction): Promise<Payment | undefined> {
 		const dbInstance = tx ?? db;
 

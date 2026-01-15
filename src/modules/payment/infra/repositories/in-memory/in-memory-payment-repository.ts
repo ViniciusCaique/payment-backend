@@ -25,6 +25,18 @@ export class InMemoryPaymentRepository implements PaymentRepository {
 		});
 	}
 
+	async findByMercadoPagoId(id: string): Promise<Payment | undefined> {
+		const payment = this.payments.find(
+			(payment) => payment.mercado_pago_id === id,
+		);
+
+		if (!payment) {
+			return undefined;
+		}
+
+		return payment;
+	}
+
 	async findById(id: string): Promise<Payment | undefined> {
 		const payment = this.payments.find((payment) => payment.id === id);
 
@@ -45,6 +57,7 @@ export class InMemoryPaymentRepository implements PaymentRepository {
 			status: paymentStatusEnum.PENDING,
 			createdAt: new Date(),
 			updatedAt: new Date(),
+			mercado_pago_id: data.mercado_pago_id ?? null,
 		};
 
 		this.payments.push(payment);
@@ -75,6 +88,7 @@ export class InMemoryPaymentRepository implements PaymentRepository {
 			status: data.status ?? existingPayment.status,
 			createdAt: existingPayment.createdAt,
 			updatedAt: new Date(),
+			mercado_pago_id: data.mercado_pago_id ?? null,
 		};
 
 		this.payments[paymentIndex] = updatedPayment;

@@ -8,6 +8,20 @@
       "when": 1768395524192,
       "tag": "0000_secret_firestar",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1768513873608,
+      "tag": "0001_puzzling_strong_guy",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1768514585755,
+      "tag": "0002_luxuriant_greymalkin",
+      "breakpoints": true
     }
   ]
 }

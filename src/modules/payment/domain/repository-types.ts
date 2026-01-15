@@ -21,7 +21,8 @@ export const createPaymentSchema = z.object({
 	paymentMethod: z.enum(["PIX", "CREDIT_CARD"]),
 	status: z.enum(["PENDING", "PAID", "FAIL"]),
 	createdAt: z.date().optional(),
-	updatedAt: z.date().optional()
+	updatedAt: z.date().optional(),
+	mercado_pago_id: z.string().optional().nullable(),
 });
 
 export type CreatePaymentInput = z.infer<typeof createPaymentSchema>;

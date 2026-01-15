@@ -1,0 +1,1 @@
+ALTER TABLE "tb_payments" ADD COLUMN "mercado_pago_id" uuid DEFAULT gen_random_uuid();
