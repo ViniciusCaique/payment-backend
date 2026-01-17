@@ -24,8 +24,9 @@ export class CreatePaymentUseCase {
 		let checkout_url: string | null = null;
 
 		if (data.paymentMethod === paymentMethodEnum.CREDIT_CARD) {
-			const response = await callMercadoPago();
-			console.log(response.id);
+			const response = await callMercadoPago({
+				value: data.amount
+			});
 
 			mercado_pago_id = response.id;
 			checkout_url = response.sandbox_init_point;

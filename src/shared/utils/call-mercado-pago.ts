@@ -1,22 +1,25 @@
+import { randomUUID } from "node:crypto";
 import { env } from "../config/env";
 import { api } from "../lib/axios";
 
+interface MercadoPagoRequest {
+  value: number
+}
 
 
-
-export async function callMercadoPago() {
+export async function callMercadoPago({
+  value
+}: MercadoPagoRequest) {
 
   try {
     const items = [
       {
-      id: 'test',
+      id: randomUUID(),
       title: 'test',
       quantity: 1,
-      unit_price: 50.00
+      unit_price: value
       }
     ]
-    console.log(items, 'payload')
-    console.log(env.MERCADO_PAGO_ACCESS_TOKEN, 'test')
 
     const { data } = await api.post('/checkout/preferences', {
       items
@@ -27,8 +30,6 @@ export async function callMercadoPago() {
       }
     }
   )
-
-    console.log(data, `response`)
 
     return data
 
