@@ -5,9 +5,9 @@ import { GetPaymentUseCase } from "./application/usecases/get-payment";
 import { GetPaymentsUseCase } from "./application/usecases/get-payments";
 import { UpdatePaymentUseCase } from "./application/usecases/update-payment";
 import { UpdatePaymentWebhookUseCase } from "./application/usecases/update-payment-webhook";
-import { CreatePaymentDto } from "./dto/create-payment.dto";
-import { MercadoPagoWebhookDto } from "./dto/mercado-pago-webhook.dto";
-import { UpdatePaymentDto } from "./dto/update-payment.dto";
+import { CreatePaymentDto } from "./domain/dto/create-payment.dto";
+import { MercadoPagoWebhookDto } from "./domain/dto/mercado-pago-webhook.dto";
+import { UpdatePaymentDto } from "./domain/dto/update-payment.dto";
 
 @ApiTags("Payment")
 @Controller("payment")
