@@ -1,7 +1,8 @@
 import { NotFound } from "@/shared/errors/not-found";
 import { api } from "@/shared/lib/axios";
+import { Inject } from "@nestjs/common";
 import { paymentStatusEnum } from "../../domain/repository-types";
-import { PaymentRepository } from "../../infra/repositories/payment-repository";
+import { PAYMENT_REPOSITORY, PaymentRepository } from "../../infra/repositories/payment-repository";
 
 interface UpdatePaymentWebhookUseCaseRequest {
 	id: string;
@@ -12,7 +13,11 @@ interface MercadoPagoResponse {
 }
 
 export class UpdatePaymentWebhookUseCase {
-	constructor(private paymentRepository: PaymentRepository) {}
+	constructor(
+		@Inject(PAYMENT_REPOSITORY)
+		private paymentRepository: PaymentRepository
+	) {}
+
 
 	async execute({ id }: UpdatePaymentWebhookUseCaseRequest) {
 		const existingPayment =

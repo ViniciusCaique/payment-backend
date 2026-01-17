@@ -1,6 +1,7 @@
 import { NotFound } from "@/shared/errors/not-found";
+import { Inject } from "@nestjs/common";
 import { UpdatePaymentBody } from "../../domain/payment";
-import { PaymentRepository } from "../../infra/repositories/payment-repository";
+import { PAYMENT_REPOSITORY, PaymentRepository } from "../../infra/repositories/payment-repository";
 
 interface UpdatePaymentUseCaseRequest {
 	id: string,
@@ -8,7 +9,11 @@ interface UpdatePaymentUseCaseRequest {
 }
 
 export class UpdatePaymentUseCase {
-	constructor(private paymentRepository: PaymentRepository) {}
+	constructor(
+		@Inject(PAYMENT_REPOSITORY)
+		private paymentRepository: PaymentRepository
+	) {}
+
 
 	async execute({ id, data }: UpdatePaymentUseCaseRequest) {
 		const existingPayment = await this.paymentRepository.findById(id);

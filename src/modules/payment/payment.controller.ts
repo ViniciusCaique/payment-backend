@@ -1,5 +1,5 @@
 import { Body, Controller, Get, HttpCode, HttpStatus, Param, Patch, Post, Query } from "@nestjs/common";
-import { ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
+import { ApiOperation, ApiParam, ApiQuery, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { CreatePaymentUseCase } from "./application/usecases/create-payment";
 import { GetPaymentUseCase } from "./application/usecases/get-payment";
 import { GetPaymentsUseCase } from "./application/usecases/get-payments";
@@ -24,7 +24,8 @@ export class PaymentController {
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Get Payment', description: 'Get Payment' })
   @ApiResponse({ status: 200, description: 'Payment fetched successfully' })
-  async getPayment(@Param() id: string) {
+  @ApiParam({ name: 'id', required: true, type: String })
+  async getPayment(@Param('id') id: string) {
     const response = await this.getPaymentUseCase.execute({ id: id });
     return { data: response };
   }
@@ -33,6 +34,8 @@ export class PaymentController {
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Get Payment', description: 'Get Payment' })
   @ApiResponse({ status: 200, description: 'Payment fetched successfully' })
+  @ApiQuery({ name: 'document', required: false, type: String })
+  @ApiQuery({ name: 'paymentMethod', required: false, type: String })
   async getPayments(@Query('document') document?: string, @Query('paymentMethod') paymentMethod?: string) {
     const response = await this.getPaymentsUseCase.execute({ document: document, paymentMethod: paymentMethod });
     return { data: response };
@@ -47,13 +50,14 @@ export class PaymentController {
     return { data: response };
   }
 
-  @Patch()
+  @Patch(':id')
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Update Payment', description: 'Update Payment' })
   @ApiResponse({ status: 200, description: 'Payment updated successfully' })
-  async updatePayment(@Param() id: string, @Body() data: UpdatePaymentDto) {
+  @ApiParam({ name: 'id', required: true, type: String })
+  async updatePayment(@Param('id') id: string, @Body() data: UpdatePaymentDto) {
     const response = await this.updatePaymentUseCase.execute({ id: id, data: data });
-    return { data: response };
+    return { message: 'Updated successfully' };
   }
 
   @Patch('/webhooks/mercadopago')

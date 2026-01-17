@@ -1,12 +1,17 @@
 import { NotFound } from "@/shared/errors/not-found";
-import { PaymentRepository } from "../../infra/repositories/payment-repository";
+import { Inject } from "@nestjs/common";
+import { PAYMENT_REPOSITORY, PaymentRepository } from "../../infra/repositories/payment-repository";
 
 interface GetPaymentUseCaseRequest {
 	id: string;
 }
 
 export class GetPaymentUseCase {
-	constructor(private paymentRepository: PaymentRepository) {}
+	constructor(
+		@Inject(PAYMENT_REPOSITORY)
+		private paymentRepository: PaymentRepository
+	) {}
+
 
 	async execute({ id }: GetPaymentUseCaseRequest) {
 		const existingPayment = await this.paymentRepository.findById(id);
