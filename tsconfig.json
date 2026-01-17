@@ -11,11 +11,15 @@
 
 		// Environment Settings
 		// See also https://aka.ms/tsconfig/module
-		"module": "ESNext",
-		"moduleResolution": "Bundler",
+		"module": "CommonJS",
+		"moduleResolution": "Node",
 		"target": "es2022",
 		"types": ["node"],
 		"lib": ["ESNext"],
+		
+		// Decorator Support for NestJS
+		"experimentalDecorators": true,
+		"emitDecoratorMetadata": true,
 
 		// For nodejs:
 		// "types": ["node"],
@@ -50,5 +54,10 @@
 		// "moduleDetection": "force",
 	},
 	"include": ["src/**/*"],
-	"exclude": ["node_modules", "dist"]
+	"exclude": [
+		"node_modules",
+		"dist",
+		"src/modules/payment/application/factories/**/*",
+		"src/server.ts"
+	]
 }

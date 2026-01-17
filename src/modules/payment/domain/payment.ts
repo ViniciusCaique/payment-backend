@@ -1,4 +1,4 @@
-import type { payments } from "@/shared/config/db/schema/payments";
+import { payments } from "@/shared/config/db/schema/payments";
 import z from "zod/v4";
 
 const validateCPF = (cpf: string) => {

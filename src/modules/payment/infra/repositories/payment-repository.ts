@@ -1,10 +1,12 @@
-import type { Transaction } from "@/shared/config/db";
-import type { Payment } from "../../domain/payment";
-import type {
+import { Transaction } from "@/shared/config/db";
+import { Payment } from "../../domain/payment";
+import {
 	CreatePaymentInput,
 	PaymentFilters,
 	UpdatePaymentInput
 } from "../../domain/repository-types";
+
+export const PAYMENT_REPOSITORY = 'PAYMENT_REPOSITORY';
 
 export interface PaymentRepository {
 	findByFilters(filters: PaymentFilters, tx?: Transaction): Promise<Payment[]>;

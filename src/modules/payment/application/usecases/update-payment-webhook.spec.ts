@@ -3,7 +3,7 @@ import { api } from "@/shared/lib/axios";
 import { randomUUID } from "node:crypto";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { InMemoryPaymentRepository } from "../../infra/repositories/in-memory/in-memory-payment-repository";
-import type { PaymentRepository } from "../../infra/repositories/payment-repository";
+import { PaymentRepository } from "../../infra/repositories/payment-repository";
 import { UpdatePaymentWebhookUseCase } from "./update-payment-webhook";
 
 vi.mock("@/shared/lib/axios", () => ({

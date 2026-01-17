@@ -1,20 +1,37 @@
-import type { Payment } from "@/modules/payment/domain/payment";
-import type {
+// import { DATABASE_CONNECTION } from "@/shared/database/database.module";
+
+import { Payment } from "@/modules/payment/domain/payment";
+import {
 	CreatePaymentInput,
 	PaymentFilters,
 	UpdatePaymentInput,
 } from "@/modules/payment/domain/repository-types";
-import { db, type Transaction } from "@/shared/config/db";
+import { Transaction } from "@/shared/config/db";
+import * as schema from "@/shared/config/db/";
 import { payments } from "@/shared/config/db/schema/payments";
+import { DATABASE_CONNECTION } from "@/shared/database/database.module";
+import { Inject, Injectable } from "@nestjs/common";
 import { and, eq } from "drizzle-orm";
-import type { PaymentRepository } from "../payment-repository";
+import { NodePgDatabase } from "drizzle-orm/node-postgres";
+import { PaymentRepository } from "../payment-repository";
 
+export type Database = NodePgDatabase<typeof schema>;
+
+@Injectable()
 export class DrizzlePaymentRepository implements PaymentRepository {
+	constructor(
+    @Inject(DATABASE_CONNECTION) private readonly database: Database,
+  ) {}
+
+	private get db(): Database {
+		return this.database;
+	}
+
 	async findByFilters(
 		filters: PaymentFilters,
 		tx?: Transaction,
 	): Promise<Payment[]> {
-		const dbInstance = tx ?? db;
+		const dbInstance = tx ?? this.db;
 
 		const { document, paymentMethod } = filters;
 
@@ -41,7 +58,7 @@ export class DrizzlePaymentRepository implements PaymentRepository {
 		id: string,
 		tx?: Transaction,
 	): Promise<Payment | undefined> {
-		const dbInstance = tx ?? db;
+		const dbInstance = tx ?? this.db;
 
 		const [payment] = await dbInstance
 			.select()
@@ -53,7 +70,7 @@ export class DrizzlePaymentRepository implements PaymentRepository {
 	}
 
 	async findById(id: string, tx?: Transaction): Promise<Payment | undefined> {
-		const dbInstance = tx ?? db;
+		const dbInstance = tx ?? this.db;
 
 		const [payment] = await dbInstance
 			.select()
@@ -65,7 +82,7 @@ export class DrizzlePaymentRepository implements PaymentRepository {
 	}
 
 	async create(data: CreatePaymentInput, tx?: Transaction): Promise<Payment> {
-		const dbInstance = tx ?? db;
+		const dbInstance = tx ?? this.db;
 
 		const [payment] = await dbInstance
 			.insert(payments)
@@ -84,7 +101,7 @@ export class DrizzlePaymentRepository implements PaymentRepository {
 		data: UpdatePaymentInput,
 		tx?: Transaction,
 	): Promise<void> {
-		const dbInstance = tx ?? db;
+		const dbInstance = tx ?? this.db;
 
 		await dbInstance.update(payments).set(data).where(eq(payments.id, id));
 	}

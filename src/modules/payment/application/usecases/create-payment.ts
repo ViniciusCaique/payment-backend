@@ -1,18 +1,23 @@
 import { callMercadoPago } from "@/shared/utils/call-mercado-pago";
+import { Inject, Injectable } from "@nestjs/common";
 import { randomUUID } from "node:crypto";
-import type { CreatePaymentBody } from "../../domain/payment";
+import { CreatePaymentBody } from "../../domain/payment";
 import {
 	paymentMethodEnum,
 	paymentStatusEnum,
 } from "../../domain/repository-types";
-import type { PaymentRepository } from "../../infra/repositories/payment-repository";
+import { PAYMENT_REPOSITORY, PaymentRepository } from "../../infra/repositories/payment-repository";
 
 interface CreatePaymentUseCaseRequest {
 	data: CreatePaymentBody;
 }
 
+@Injectable()
 export class CreatePaymentUseCase {
-	constructor(private paymentRepository: PaymentRepository) {}
+	constructor(
+		@Inject(PAYMENT_REPOSITORY)
+		private paymentRepository: PaymentRepository
+	) {}
 
 	async execute({ data }: CreatePaymentUseCaseRequest) {
 		let mercado_pago_id: string | null = null;

@@ -1,12 +1,12 @@
-import type { Payment } from "@/modules/payment/domain/payment";
+import { Payment } from "@/modules/payment/domain/payment";
 import {
-	type CreatePaymentInput,
-	type PaymentFilters,
-	paymentStatusEnum,
-	type UpdatePaymentInput,
+    type CreatePaymentInput,
+    type PaymentFilters,
+    paymentStatusEnum,
+    type UpdatePaymentInput,
 } from "@/modules/payment/domain/repository-types";
 import { randomUUID } from "node:crypto";
-import type { PaymentRepository } from "../payment-repository";
+import { PaymentRepository } from "../payment-repository";
 
 export class InMemoryPaymentRepository implements PaymentRepository {
 	public payments: Payment[] = [];

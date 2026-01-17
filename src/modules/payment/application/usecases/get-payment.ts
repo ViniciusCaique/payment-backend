@@ -1,5 +1,5 @@
 import { NotFound } from "@/shared/errors/not-found";
-import type { PaymentRepository } from "../../infra/repositories/payment-repository";
+import { PaymentRepository } from "../../infra/repositories/payment-repository";
 
 interface GetPaymentUseCaseRequest {
 	id: string;

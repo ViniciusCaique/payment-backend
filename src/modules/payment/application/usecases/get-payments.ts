@@ -1,6 +1,6 @@
 import { NotFound } from "@/shared/errors/not-found";
-import type { PaymentFilters } from "../../domain/repository-types";
-import type { PaymentRepository } from "../../infra/repositories/payment-repository";
+import { PaymentFilters } from "../../domain/repository-types";
+import { PaymentRepository } from "../../infra/repositories/payment-repository";
 
 interface GetPaymentsUseCaseRequest {
 	document?: string | undefined;

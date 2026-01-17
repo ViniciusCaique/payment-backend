@@ -1,8 +1,8 @@
 import { env } from "@/shared/config/env";
-import type { ExtractTablesWithRelations } from "drizzle-orm";
+import { ExtractTablesWithRelations } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/node-postgres";
-import type { PgTransaction } from "drizzle-orm/pg-core";
-import type { PostgresJsQueryResultHKT } from "drizzle-orm/postgres-js";
+import { PgTransaction } from "drizzle-orm/pg-core";
+import { PostgresJsQueryResultHKT } from "drizzle-orm/postgres-js";
 import { payments } from "./schema/payments";
 
 export const db = drizzle({

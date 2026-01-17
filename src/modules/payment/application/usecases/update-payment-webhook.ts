@@ -1,7 +1,7 @@
 import { NotFound } from "@/shared/errors/not-found";
 import { api } from "@/shared/lib/axios";
 import { paymentStatusEnum } from "../../domain/repository-types";
-import type { PaymentRepository } from "../../infra/repositories/payment-repository";
+import { PaymentRepository } from "../../infra/repositories/payment-repository";
 
 interface UpdatePaymentWebhookUseCaseRequest {
 	id: string;

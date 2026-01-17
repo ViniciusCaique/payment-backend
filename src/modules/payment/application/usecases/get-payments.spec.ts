@@ -2,7 +2,7 @@ import { NotFound } from "@/shared/errors/not-found";
 import { randomUUID } from "node:crypto";
 import { beforeEach, describe, expect, it } from "vitest";
 import { InMemoryPaymentRepository } from "../../infra/repositories/in-memory/in-memory-payment-repository";
-import type { PaymentRepository } from "../../infra/repositories/payment-repository";
+import { PaymentRepository } from "../../infra/repositories/payment-repository";
 import { GetPaymentsUseCase } from "./get-payments";
 
 let paymentRepository: PaymentRepository;
