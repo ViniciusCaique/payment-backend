@@ -15,7 +15,7 @@ export async function callMercadoPago({
     const items = [
       {
       id: randomUUID(),
-      title: 'test',
+      title: 'product',
       quantity: 1,
       unit_price: value
       }
