@@ -1,11 +1,21 @@
-import { createZodDto } from 'nestjs-zod';
-import { z } from 'zod/v4';
+import { ApiProperty } from '@nestjs/swagger';
+import { Type } from 'class-transformer';
+import { IsObject, IsString, ValidateNested } from 'class-validator';
 
-export const mercadoPagoWebhookBodySchema = z.object({
-  type: z.string(),
-  data: z.object({
-    id: z.string(),
-  }),
-});
+class MercadoPagoWebhookDataDto {
+  @ApiProperty({ description: "Payment ID", example: "1234567890" })
+  @IsString()
+  id!: string;
+}
 
-export class MercadoPagoWebhookDto extends createZodDto(mercadoPagoWebhookBodySchema) {}
+export class MercadoPagoWebhookDto {
+  @ApiProperty({ description: "Type of the event", example: "payment" })
+  @IsString()
+  type!: string;
+
+  @ApiProperty({ description: "Data object containing payment id" })
+  @IsObject()
+  @ValidateNested()
+  @Type(() => MercadoPagoWebhookDataDto)
+  data!: MercadoPagoWebhookDataDto;
+}

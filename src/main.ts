@@ -1,12 +1,11 @@
 import { NestFactory } from "@nestjs/core";
 import {
-  FastifyAdapter,
-  type NestFastifyApplication,
+	FastifyAdapter,
+	type NestFastifyApplication,
 } from "@nestjs/platform-fastify";
 import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
 import { apiReference } from '@scalar/nestjs-api-reference';
 import "dotenv/config";
-import { ZodValidationPipe } from "nestjs-zod";
 import "reflect-metadata";
 import { AppModule } from "./app.module";
 
@@ -20,7 +19,7 @@ async function bootstrap() {
 
 	app.enableCors();
 
-	app.useGlobalPipes(new ZodValidationPipe());
+	app.useGlobalPipes();
 
 	const config = new DocumentBuilder()
 		.setTitle("SampleApi")
